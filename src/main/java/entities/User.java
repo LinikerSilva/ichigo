@@ -37,7 +37,7 @@ public class User {
     return orders;
   }
 
-  public static Long extractUserId(String line) {
-    return Long.valueOf(line.substring(0, 10));
+  public void addOrder(Order order) {
+    this.orders.add(order);
   }
 }

@@ -1,7 +1,5 @@
 package entities;
 
-import java.math.BigDecimal;
-
 public class Product {
   private Long product_id;
   private String value;
@@ -28,13 +26,5 @@ public class Product {
 
   public void setValue(String value) {
     this.value = value;
-  }
-
-  public static Long extractProductId(String line) {
-    return Long.valueOf(line.substring(66, 75));
-  }
-
-  public static BigDecimal extractProductValue(String line) {
-    return new BigDecimal(line.substring(76, 87).trim());
   }
 }

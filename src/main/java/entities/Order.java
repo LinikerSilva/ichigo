@@ -1,7 +1,5 @@
 package entities;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +17,10 @@ public class Order {
     this.date = date;
     this.total = total;
     this.products = products;
+  }
+
+  public Order orderBuilder() {
+    return new Order();
   }
 
   public Long getOrder_id() {
@@ -51,13 +53,5 @@ public class Order {
 
   public void setProducts(Set<Product> products) {
     this.products = products;
-  }
-
-  public static Long extractOrderId(String line) {
-    return Long.valueOf(line.substring(55, 65));
-  }
-
-  public static String formattingOrderDate(String line) {
-    return LocalDate.parse(line.substring(87, 95), DateTimeFormatter.ofPattern("yyyyMMdd")).toString();
   }
 }
