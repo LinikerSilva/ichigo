@@ -1,17 +1,17 @@
 package entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class User {
   private Long user_id;
   private String name;
-  private Set<Order> orders = new HashSet<>();
+  private Map<Long, Order> orders = new HashMap<>();
 
   public User() {
   }
 
-  public User(Long user_id, String name, Set<Order> orders) {
+  public User(Long user_id, String name, Map<Long, Order> orders) {
     this.user_id = user_id;
     this.name = name;
     this.orders = orders;
@@ -33,11 +33,11 @@ public class User {
     this.name = name;
   }
 
-  public Set<Order> getOrders() {
+  public Map<Long, Order> getOrders() {
     return orders;
   }
 
-  public void addOrder(Order order) {
-    this.orders.add(order);
+  public void addOrder(Long orderId, Order order) {
+    this.orders.put(orderId, order);
   }
 }

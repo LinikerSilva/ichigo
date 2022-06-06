@@ -1,7 +1,7 @@
 package entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ class UserTest {
 
   @Test
   void userEntityShouldHaveCorrectStructure() {
-    Set<Order> orders = new HashSet<>();
+    Map<Long, Order> orders = new HashMap<>();
 
     User user = new User(3L, "Rodrigo Freitas", orders);
 
