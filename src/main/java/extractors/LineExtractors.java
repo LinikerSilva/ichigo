@@ -10,8 +10,8 @@ public class LineExtractors {
     return Long.valueOf(line.substring(66, 75));
   }
 
-  public static BigDecimal extractingProductValue(String line) {
-    return new BigDecimal(line.substring(76, 87).trim());
+  public static String extractingProductValue(String line) {
+    return String.valueOf(new BigDecimal(line.substring(76, 87).trim()));
   }
 
   public static Long extractingOrderId(String line) {

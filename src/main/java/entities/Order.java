@@ -1,18 +1,19 @@
 package entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Order {
   private Long order_id;
   private String date;
   private String total;
-  private Set<Product> products = new HashSet<>();
+  private Map<Long, Product> products = new HashMap<>();
 
   public Order() {
   }
 
-  public Order(Long order_id, String date, String total, Set<Product> products) {
+  public Order(Long order_id, String date, String total, Map<Long, Product> products) {
     this.order_id = order_id;
     this.date = date;
     this.total = total;
@@ -47,11 +48,24 @@ public class Order {
     this.total = total;
   }
 
-  public Set<Product> getProducts() {
+  public Map<Long, Product> getProducts() {
     return products;
   }
 
-  public void setProducts(Set<Product> products) {
-    this.products = products;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Order order = (Order) o;
+    return Objects.equals(order_id, order.order_id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(order_id);
+  }
+
+  public void addProduct(Long productId, Product product) {
+    this.products.put(productId, product);
   }
 }

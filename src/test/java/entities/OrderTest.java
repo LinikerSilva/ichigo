@@ -1,13 +1,13 @@
 package entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class OrderTest {
-  Set<Product> products = new HashSet<>();
+  Map<Long, Product> products = new HashMap<>();
 
   @Test
   void orderEntityShouldHaveCorrectStructure() {

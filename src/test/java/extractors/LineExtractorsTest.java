@@ -7,8 +7,6 @@ import static extractors.LineExtractors.extractingProductValue;
 import static extractors.LineExtractors.extractingUserId;
 import static extractors.LineExtractors.extractingUserName;
 
-import java.math.BigDecimal;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,9 +22,9 @@ class LineExtractorsTest {
 
   @Test
   void extractingProductValueShouldReturnCorrectCurrentLineProductValue() {
-    BigDecimal productValue = extractingProductValue(line);
+    String productValue = extractingProductValue(line);
 
-    Assertions.assertEquals(new BigDecimal("1899.02"), productValue);
+    Assertions.assertEquals("1899.02", productValue);
   }
 
   @Test
