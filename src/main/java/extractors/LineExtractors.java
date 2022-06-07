@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class LineExtractors {
+public final class LineExtractors {
 
   public static Long extractingProductId(String line) {
     return Long.valueOf(line.substring(66, 75));

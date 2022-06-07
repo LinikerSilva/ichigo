@@ -24,8 +24,6 @@ import entities.User;
 public class LineReader {
   public void readLine(String filePath) {
     Map<Long, User> usersMap = new HashMap<>();
-    Map<Long, Order> ordersMap = new HashMap<>();
-    Map<Long, Product> productsMap = new HashMap<>();
 
     Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
 
@@ -37,8 +35,8 @@ public class LineReader {
         Long lineProductId = extractingProductId(line);
 
         User user = usersMap.getOrDefault(lineUserId, new User(lineUserId, extractingUserName(line), new HashMap<>()));
-        Product product = productsMap.getOrDefault(lineProductId, new Product(lineProductId, extractingProductValue(line)));
-        Order order = ordersMap.getOrDefault(lineOrderId, new Order(lineOrderId, extractingOrderDate(line), String.valueOf(BigDecimal.ZERO), new HashMap<>()));
+        Order order = user.orders().getOrDefault(lineOrderId, new Order(lineOrderId, extractingOrderDate(line), String.valueOf(BigDecimal.ZERO), new HashMap<>()));
+        Product product = order.products().getOrDefault(lineProductId, new Product(lineProductId, extractingProductValue(line)));
 
         order.addProduct(lineProductId, product);
         user.addOrder(lineOrderId, order);
@@ -47,6 +45,6 @@ public class LineReader {
     } catch (IOException e) {
       System.out.println("Ocorreu um erro durante a leitura do arquivo: " + e.getMessage());
     }
-    System.out.println(gson.toJson(usersMap));
+    System.out.println(gson.toJson(usersMap.values()));
   }
 }

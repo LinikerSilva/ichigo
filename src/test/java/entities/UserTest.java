@@ -14,8 +14,8 @@ class UserTest {
 
     User user = new User(3L, "Rodrigo Freitas", orders);
 
-    Assertions.assertEquals(3L, user.getUser_id());
-    Assertions.assertEquals("Rodrigo Freitas", user.getName());
-    Assertions.assertEquals(orders, user.getOrders());
+    Assertions.assertEquals(3L, user.user_id());
+    Assertions.assertEquals("Rodrigo Freitas", user.name());
+    Assertions.assertEquals(orders, user.orders());
   }
 }
