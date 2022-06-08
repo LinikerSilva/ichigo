@@ -13,9 +13,9 @@ class OrderTest {
   void orderEntityShouldHaveCorrectStructure() {
     Order order = new Order(111L, "2021-12-03", "2000.23", products);
 
-    Assertions.assertEquals(111L, order.order_id());
-    Assertions.assertEquals("2021-12-03", order.date());
-    Assertions.assertEquals("2000.23", order.total());
-    Assertions.assertEquals(products, order.products());
+    Assertions.assertEquals(111L, order.getOrderId());
+    Assertions.assertEquals("2021-12-03", order.getDate());
+    Assertions.assertEquals("2000.23", order.getTotal());
+    Assertions.assertEquals(products, order.getProducts());
   }
 }

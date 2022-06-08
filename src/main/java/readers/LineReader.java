@@ -36,15 +36,16 @@ public class LineReader {
 
         User user = usersMap.getOrDefault(lineUserId, new User(lineUserId, extractingUserName(line), new HashMap<>()));
         Order order = user.orders().getOrDefault(lineOrderId, new Order(lineOrderId, extractingOrderDate(line), String.valueOf(BigDecimal.ZERO), new HashMap<>()));
-        Product product = order.products().getOrDefault(lineProductId, new Product(lineProductId, extractingProductValue(line)));
+        Product product = order.getProducts().getOrDefault(lineProductId, new Product(lineProductId, extractingProductValue(line)));
 
-        order.addProduct(lineProductId, product);
-        user.addOrder(lineOrderId, order);
+        order.addProductToProductsMapAndAddsProductValueToOrderValue(lineProductId, product);
+        user.addOrderToOrdersMap(lineOrderId, order);
         usersMap.put(lineUserId, user);
       }
     } catch (IOException e) {
       System.out.println("Ocorreu um erro durante a leitura do arquivo: " + e.getMessage());
     }
-    System.out.println(gson.toJson(usersMap.values()));
+
+    System.out.println(gson.toJson(usersMap));
   }
 }
