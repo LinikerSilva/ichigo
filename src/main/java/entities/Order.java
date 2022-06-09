@@ -5,20 +5,20 @@ import java.util.Map;
 
 public class Order {
 
-  Long order_id;
-  String date;
-  String total;
-  Map<Long, Product> products;
+  private final Long orderId;
+  private final String date;
+  private String total;
+  private final Map<Long, Product> products;
 
-  public Order(Long order_id, String date, String total, Map<Long, Product> products) {
-    this.order_id = order_id;
+  public Order(Long orderId, String date, String total, Map<Long, Product> products) {
+    this.orderId = orderId;
     this.date = date;
     this.total = total;
     this.products = products;
   }
 
   public Long getOrderId() {
-    return order_id;
+    return orderId;
   }
 
   public String getDate() {
@@ -37,7 +37,7 @@ public class Order {
     return products;
   }
 
-  public void addProductToProductsMapAndAddsProductValueToOrderValue(Long productId, Product product) {
+  public void addProductToProductsMapAndIncreasesOrderValue(Long productId, Product product) {
     this.products.put(productId, product);
     setTotal(addProductValueToOrderValue(product));
   }

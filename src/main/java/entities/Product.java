@@ -1,4 +1,4 @@
 package entities;
 
-public record Product(Long product_id, String value) {
+public record Product(Long productId, String value) {
 }
