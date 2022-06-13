@@ -37,6 +37,16 @@ public class Order {
     return products;
   }
 
+  @Override
+  public String toString() {
+    return "Order{" +
+        "orderId=" + orderId +
+        ", date='" + date + '\'' +
+        ", total='" + total + '\'' +
+        ", products=" + products +
+        '}';
+  }
+
   public void addProductToProductsMapAndIncreasesOrderValue(Long productId, Product product) {
     this.products.put(productId, product);
     setTotal(addProductValueToOrderValue(product));

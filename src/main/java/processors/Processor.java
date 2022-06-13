@@ -41,15 +41,15 @@ public class Processor {
     return usersMap;
   }
 
-  public void setOrder(Order order) {
+  private void setOrder(Order order) {
     this.order = order;
   }
 
-  public void setProduct(Product product) {
+  private void setProduct(Product product) {
     this.product = product;
   }
 
-  public void setUser(User user) {
+  private void setUser(User user) {
     this.user = user;
   }
 

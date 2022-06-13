@@ -9,7 +9,7 @@ class MainTest {
   @Test
   void mainShouldNotThrowsException() {
     String[] args = new String[1];
-    args[0] = "/home/liniker/Documentos/desafio-tecnico-luizalabs/arquivos-suporte/data_2 (1).txt";
+    args[0] = "src/test/resources/testFile.txt";
 
     assertDoesNotThrow(() -> Main.main(args));
   }
