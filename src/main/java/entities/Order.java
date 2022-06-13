@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public class Order {
-
   private final Long orderId;
   private final String date;
   private String total;
@@ -19,10 +18,6 @@ public class Order {
 
   public Long getOrderId() {
     return orderId;
-  }
-
-  public String getDate() {
-    return date;
   }
 
   public String getTotal() {

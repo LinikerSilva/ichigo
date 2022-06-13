@@ -16,10 +16,14 @@ import entities.Product;
 import entities.User;
 
 public class Processor {
-  private static final Map<Long, User> usersMap = new HashMap<>();
   private Order order;
   private Product product;
   private User user;
+  private final Map<Long, User> usersMap;
+
+  public Processor(Map<Long, User> usersMap) {
+    this.usersMap = usersMap;
+  }
 
   public void getUserOrderAndProductFromLine(String line) {
     Long currentLineUserId = extractingUserId(line);

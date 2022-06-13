@@ -8,22 +8,36 @@ import entities.Order;
 import entities.Product;
 import entities.User;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ProcessorTest {
-  Processor processor = new Processor();
+  String firstLine;
+  String secondLineWithAnotherDifferentUser;
+  String thirdLineWithAlreadyExistentUser;
+  User terraDanielUser;
+  Order terraDanielUserOrder;
+  Product terraDanielUserProduct;
+  User gailBradtkeUser;
+  Order gailBradtkeUserOrder;
+  Product gailBradtkeUserProduct;
+  Processor processor;
 
-  String firstLine = "0000000088                             Terra Daniel DDS00000008360000000010     1899.0220210909";
-  String secondLineWithAnotherDifferentUser = "0000000103                                 Gail Bradtke00000009660000000005     1564.2120210507";
-  String thirdLineWithAlreadyExistentUser = "0000000088                             Terra Daniel DDS00000008360000000003     1899.0220210909";
+  @BeforeEach
+  void setUp() {
+    firstLine = "0000000088                             Terra Daniel DDS00000008360000000010     1899.0220210909";
+    secondLineWithAnotherDifferentUser = "0000000103                                 Gail Bradtke00000009660000000005     1564.2120210507";
+    thirdLineWithAlreadyExistentUser = "0000000088                             Terra Daniel DDS00000008360000000003     1899.0220210909";
 
-  User terraDanielUser = new User(88L, "Terra Daniel DDS", new HashMap<>());
-  Order terraDanielUserOrder = new Order(836L, "2021-09-09", String.valueOf(BigDecimal.ZERO), new HashMap<>());
-  Product terraDanielUserProduct = new Product(10L, "1899.02");
+    terraDanielUser = new User(88L, "Terra Daniel DDS", new HashMap<>());
+    terraDanielUserOrder = new Order(836L, "2021-09-09", String.valueOf(BigDecimal.ZERO), new HashMap<>());
+    terraDanielUserProduct = new Product(10L, "1899.02");
 
-  User gailBradtkeUser = new User(103L, "Gail Bradtke", new HashMap<>());
-  Order gailBradtkeUserOrder = new Order(966L, "2021-05-07", String.valueOf(BigDecimal.ZERO), new HashMap<>());
-  Product gailBradtkeUserProduct = new Product(5L, "1564.21");
+    gailBradtkeUser = new User(103L, "Gail Bradtke", new HashMap<>());
+    gailBradtkeUserOrder = new Order(966L, "2021-05-07", String.valueOf(BigDecimal.ZERO), new HashMap<>());
+    gailBradtkeUserProduct = new Product(5L, "1564.21");
+    processor = new Processor(new HashMap<>());
+  }
 
   @Test
   void processorShouldNotReturnsANewUserIfAlreadyExistsInUsersMap() {
