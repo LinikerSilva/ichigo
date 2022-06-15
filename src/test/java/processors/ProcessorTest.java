@@ -41,47 +41,89 @@ class ProcessorTest {
 
   @Test
   void processorShouldNotReturnsANewUserIfAlreadyExistsInUsersMap() {
-    processor.getUserOrderAndProductFromLine(firstLine);
-    processor.buildingCompleteUsersMapStructure(firstLine);
-    processor.getUserOrderAndProductFromLine(secondLineWithAnotherDifferentUser);
-    processor.buildingCompleteUsersMapStructure(secondLineWithAnotherDifferentUser);
-    processor.getUserOrderAndProductFromLine(thirdLineWithAlreadyExistentUser);
-    processor.buildingCompleteUsersMapStructure(thirdLineWithAlreadyExistentUser);
-
     Map<Long, User> expectedUsersMap = new HashMap<>();
     Product newDifferentProductForExistentTerraDanielUser = new Product(3L, "1899.02");
 
-    usersMapBuilder(terraDanielUser.userId(), terraDanielUser, terraDanielUserOrder.getOrderId(),
-        terraDanielUserOrder, terraDanielUserProduct.productId(), terraDanielUserProduct, expectedUsersMap);
+    executeProcessor();
+    processor.getUserOrderAndProductFromLine(thirdLineWithAlreadyExistentUser);
+    processor.buildingCompleteUsersMapStructure(thirdLineWithAlreadyExistentUser);
 
-    usersMapBuilder(gailBradtkeUser.userId(), gailBradtkeUser, gailBradtkeUserOrder.getOrderId(),
-        gailBradtkeUserOrder, gailBradtkeUserProduct.productId(), gailBradtkeUserProduct, expectedUsersMap);
+    User terraDanielUserInProcessorUsersMap = processor.getUsersMap().get(terraDanielUser.userId());
+    User gailBradtkeUserInProcessorUsersMap = processor.getUsersMap().get(gailBradtkeUser.userId());
+    Order terraDanielOrderInProcessorUsersMap = terraDanielUserInProcessorUsersMap.orders().get(terraDanielUserOrder.getOrderId());
+    Order gailBradtkeOrderInProcessorUsersMap = gailBradtkeUserInProcessorUsersMap.orders().get(gailBradtkeUserOrder.getOrderId());
+    Product terraDanielProduct10InProcessorUsersMap = terraDanielOrderInProcessorUsersMap.getProducts().get(terraDanielUserProduct.productId());
+    Product gailBradtkeProductInProcessorUsersMap = gailBradtkeOrderInProcessorUsersMap.getProducts().get(gailBradtkeUserProduct.productId());
+    Product terraDanielProduct3InProcessorUsersMap = terraDanielOrderInProcessorUsersMap.getProducts().get(newDifferentProductForExistentTerraDanielUser.productId());
+
+    buildExpectedUsersMap(expectedUsersMap);
 
     usersMapBuilder(terraDanielUser.userId(), terraDanielUser, terraDanielUserOrder.getOrderId(),
         terraDanielUserOrder, newDifferentProductForExistentTerraDanielUser.productId(), newDifferentProductForExistentTerraDanielUser, expectedUsersMap);
 
-    Assertions.assertEquals(processor.getUsersMap().values().toString(), expectedUsersMap.values().toString());
+    User terraDanielUserInExpectedUsersMap = expectedUsersMap.get(terraDanielUser.userId());
+    User gailBradtkeUserInExpectedUsersMap = expectedUsersMap.get(gailBradtkeUser.userId());
+    Order terraDanielOrderInExpectedUsersMap = terraDanielUserInProcessorUsersMap.orders().get(terraDanielUserOrder.getOrderId());
+    Order gailBradtkeOrderInExpectedUsersMap = gailBradtkeUserInProcessorUsersMap.orders().get(gailBradtkeUserOrder.getOrderId());
+    Product terraDanielProduct10InExpectedUsersMap = terraDanielOrderInProcessorUsersMap.getProducts().get(terraDanielUserProduct.productId());
+    Product gailBradtkeProductInExpectedUsersMap = gailBradtkeOrderInProcessorUsersMap.getProducts().get(gailBradtkeUserProduct.productId());
+    Product terraDanielProduct3InExpectedUsersMap = terraDanielOrderInExpectedUsersMap.getProducts().get(newDifferentProductForExistentTerraDanielUser.productId());
+
+    Assertions.assertEquals(terraDanielUserInProcessorUsersMap.toString(), terraDanielUserInExpectedUsersMap.toString());
+    Assertions.assertEquals(gailBradtkeUserInProcessorUsersMap.toString(), gailBradtkeUserInExpectedUsersMap.toString());
+    Assertions.assertEquals(terraDanielOrderInProcessorUsersMap.toString(), terraDanielOrderInExpectedUsersMap.toString());
+    Assertions.assertEquals(gailBradtkeOrderInProcessorUsersMap.toString(), gailBradtkeOrderInExpectedUsersMap.toString());
+    Assertions.assertEquals(terraDanielProduct10InProcessorUsersMap, terraDanielProduct10InExpectedUsersMap);
+    Assertions.assertEquals(gailBradtkeProductInProcessorUsersMap, gailBradtkeProductInExpectedUsersMap);
+    Assertions.assertEquals(terraDanielProduct3InProcessorUsersMap, terraDanielProduct3InExpectedUsersMap);
   }
 
   @Test
   void processorShouldReturnsANewUserIfThisUserDoesNotExistsInUsersMap() {
     Map<Long, User> expectedUsersMap = new HashMap<>();
 
+    executeProcessor();
+
+    User terraDanielUserInProcessorUsersMap = processor.getUsersMap().get(terraDanielUser.userId());
+    User gailBradtkeUserInProcessorUsersMap = processor.getUsersMap().get(gailBradtkeUser.userId());
+    Order terraDanielOrderInProcessorUsersMap = terraDanielUserInProcessorUsersMap.orders().get(terraDanielUserOrder.getOrderId());
+    Order gailBradtkeOrderInProcessorUsersMap = gailBradtkeUserInProcessorUsersMap.orders().get(gailBradtkeUserOrder.getOrderId());
+    Product terraDanielProduct10InProcessorUsersMap = terraDanielOrderInProcessorUsersMap.getProducts().get(terraDanielUserProduct.productId());
+    Product gailBradtkeProductInProcessorUsersMap = gailBradtkeOrderInProcessorUsersMap.getProducts().get(gailBradtkeUserProduct.productId());
+
+    buildExpectedUsersMap(expectedUsersMap);
+
+    User terraDanielUserInExpectedUsersMap = expectedUsersMap.get(terraDanielUser.userId());
+    User gailBradtkeUserInExpectedUsersMap = expectedUsersMap.get(gailBradtkeUser.userId());
+    Order terraDanielOrderInExpectedUsersMap = terraDanielUserInProcessorUsersMap.orders().get(terraDanielUserOrder.getOrderId());
+    Order gailBradtkeOrderInExpectedUsersMap = gailBradtkeUserInProcessorUsersMap.orders().get(gailBradtkeUserOrder.getOrderId());
+    Product terraDanielProduct10InExpectedUsersMap = terraDanielOrderInProcessorUsersMap.getProducts().get(terraDanielUserProduct.productId());
+    Product gailBradtkeProductInExpectedUsersMap = gailBradtkeOrderInProcessorUsersMap.getProducts().get(gailBradtkeUserProduct.productId());
+
+    Assertions.assertEquals(terraDanielUserInProcessorUsersMap.toString(), terraDanielUserInExpectedUsersMap.toString());
+    Assertions.assertEquals(gailBradtkeUserInProcessorUsersMap.toString(), gailBradtkeUserInExpectedUsersMap.toString());
+    Assertions.assertEquals(terraDanielOrderInProcessorUsersMap.toString(), terraDanielOrderInExpectedUsersMap.toString());
+    Assertions.assertEquals(gailBradtkeOrderInProcessorUsersMap.toString(), gailBradtkeOrderInExpectedUsersMap.toString());
+    Assertions.assertEquals(terraDanielProduct10InProcessorUsersMap, terraDanielProduct10InExpectedUsersMap);
+    Assertions.assertEquals(gailBradtkeProductInProcessorUsersMap, gailBradtkeProductInExpectedUsersMap);
+  }
+
+  private void executeProcessor() {
     processor.getUserOrderAndProductFromLine(firstLine);
     processor.buildingCompleteUsersMapStructure(firstLine);
     processor.getUserOrderAndProductFromLine(secondLineWithAnotherDifferentUser);
     processor.buildingCompleteUsersMapStructure(secondLineWithAnotherDifferentUser);
+  }
 
+  private void buildExpectedUsersMap(Map<Long, User> expectedUsersMap) {
     usersMapBuilder(terraDanielUser.userId(), terraDanielUser, terraDanielUserOrder.getOrderId(),
         terraDanielUserOrder, terraDanielUserProduct.productId(), terraDanielUserProduct, expectedUsersMap);
 
     usersMapBuilder(gailBradtkeUser.userId(), gailBradtkeUser, gailBradtkeUserOrder.getOrderId(),
         gailBradtkeUserOrder, gailBradtkeUserProduct.productId(), gailBradtkeUserProduct, expectedUsersMap);
-
-    Assertions.assertEquals(processor.getUsersMap().values().toString(), expectedUsersMap.values().toString());
   }
 
-  void usersMapBuilder(Long userId, User user, Long orderId, Order order,
+  private void usersMapBuilder(Long userId, User user, Long orderId, Order order,
                        Long productId, Product product, Map<Long, User> expectedUsersMap) {
     User userObj = expectedUsersMap.getOrDefault(userId, user);
     Order orderObj = userObj.orders().getOrDefault(orderId, order);
