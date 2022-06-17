@@ -1,12 +1,15 @@
 package entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.math.BigDecimal;
 import java.util.Map;
 
 public class Order {
   private final Long orderId;
-  private final String date;
   private String total;
+  private final String date;
+  @JsonSerialize(using = HashMapSerializer.class)
   private final Map<Long, Product> products;
 
   public Order(Long orderId, String date, String total, Map<Long, Product> products) {
@@ -18,6 +21,10 @@ public class Order {
 
   public Long getOrderId() {
     return orderId;
+  }
+
+  public String getDate() {
+    return date;
   }
 
   public String getTotal() {
